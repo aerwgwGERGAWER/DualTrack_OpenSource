@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 'use strict';
-/* memory_menu.js — 菜单选读模块 (V1.3) — 改为 CommonJS, 兼容 Node 18 与 require() */
+/* memory_menu.js — 菜单选读模块 (V1.3) — CommonJS, 兼容 Node 18 与 require() */
 const fs = require('fs');
 const path = require('path');
 
