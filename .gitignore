@@ -1,0 +1,49 @@
+# 依赖
+node_modules/
+
+# 本地环境(真 .env 不入库; .env.example 是模板, 应入库)
+.env
+!.env.example
+
+# 运行时产物 / 临时文件
+*.lock
+*.tmp
+*.log
+
+# 记忆数据(运行时生成, 用户私密, 不入库)
+network_shards/
+experience_cards/
+approvals/
+.locks/
+hot_data/
+cold_data/
+chat_logs/
+archive_data/
+index.json
+summary_index.json
+memory_network.json
+experience_index.json
+vault.json
+legacy_migrated.json
+
+# 本地配置(运行时生成)
+memory.config.json
+
+# 优雅停机状态(运行时生成)
+state.json
+
+# 管家守护运行时状态
+.butler.pid
+.butler.stop
+.triage.tmp
+
+# 平台
+.DS_Store
+Thumbs.db
+
+# CI / 本地测试临时产物
+memcheck/
+.memcheck_*/
+
+# 备份目录
+backup/

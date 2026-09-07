@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js 18
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Syntax-check core JS files
+        run: |
+          node --check src/memory_dual.js
+          node --check src/memory_menu.js
+          node --check src/memory_agent.js
+          node --check src/ollama_triage.cjs
+          node --check src/plugin/index.js
+          node --check src/plugin/tools.js
+          node --check scripts/install.mjs
+          node --check scripts/manual-gc.mjs
+          node --check scripts/butler-supervisor.mjs
+
+      - name: Install (skip when no root package.json)
+        run: |
+          if [ -f package.json ]; then
+            echo "root package.json found -> npm install"
+            npm install
+          else
+            echo "no root package.json -> skip npm install (zero-dependency core)"
+          fi
+
+      - name: Engine self-check (stats)
+        run: |
+          DSH_MEMORY_ROOT="$RUNNER_TEMP/memcheck" node src/memory_dual.js stats
+          echo "self-check OK"

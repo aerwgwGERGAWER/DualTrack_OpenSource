@@ -1,0 +1,80 @@
+{
+  "_说明": "DualTrack Memory 配置文件。memory_root 指定记忆数据根目录(任意盘符); 留空则用配置所在目录。所有参数可选, 均有内置默认。重要: 即使没有本配置文件(或 memory.config.json 丢失/被清空), 引擎也会用内置默认参数运行, 其中『风险分级关键词』使用内置默认值, 保证默认状态下的『高风险→挂审批』永远生效。",
+
+  "_说明_风险分级": "experience_cards.risk_keywords_high/low 为低/高风险自动判定关键词。缺省时使用引擎内置默认(高风险: 改源码/底层/跨版本/重写/hook/注入/内核/系统级; 低风险: 调整/微调/改参数/调参/配置)。即使配置丢失, 系统也依赖内置关键词维持基础安全防护, 『高风险挂审批』不会失效。",
+
+  "memory_root": "",
+
+  "dual_track": {
+    "router": {
+      "embedder_provider": "hash",
+      "triage_brain": "hash",
+      "triage_model": "dualtrack-triage",
+      "bge_model_path": "",
+      "bge_endpoint": "",
+      "embedding_dim": 256,
+      "embedding_provider": "hash",
+      "sim_threshold": 0.85,
+      "bge_sim_threshold": 0.72,
+      "menu_mode": "menu",
+      "consecutive_error_minutes": 5,
+      "activate_neighbors": 2,
+      "inject_token_budget": 500,
+      "tech_keywords": [
+        "报错", "崩溃", "修复", "配置", "版本", "异常", "错误", "失败",
+        "bug", "exception", "错误码", "timeout", "超时", "堆栈", "traceback",
+        "报错日志", "排查", "诊断", "无法启动", "启动失败", "退出码"
+      ]
+    },
+    "memory_network": {
+      "file": "memory_network.json",
+      "summary_max_len": 20,
+      "nav_max_entries": 120,
+      "nav_max_chars": 4000,
+      "edge_boost": 0.1,
+      "edge_decay_ratio": 0.99,
+      "edge_idle_decay_days": 30,
+      "shard_dir": "network_shards",
+      "max_level": 3,
+      "context_cluster_top": 5,
+      "context_cluster_top_small": 3,
+      "dormant_days": 30,
+      "dormant_ratio": 0.5,
+      "task_pool_cap": 2000,
+      "task_pool_clean": 10,
+      "shutdown_freeze_days": 15,
+      "eliminate_days": 90
+    },
+    "experience_cards": {
+      "dir": "experience_cards",
+      "auto_write_low_risk": true,
+      "env_auto_check": true,
+      "risk_keywords_low": ["调整", "微调", "改参数"],
+      "risk_keywords_high": ["改源码", "底层", "跨版本", "重写", "hook", "注入", "内核"]
+    }
+  },
+
+  "scoring": {
+    "access_weight": 1,
+    "use_weight": 2,
+    "validated_weight": 5,
+    "hot_days": 7,
+    "sleep_days": 30,
+    "decay_ratio": 0.95,
+    "validated_lock": 3,
+    "garbage_max_score": 5,
+    "junk_scan_interval_min": 10
+  },
+
+  "lock": {
+    "strategy": "tag-partition",
+    "timeout_ms": 6000,
+    "retry_ms": 25,
+    "lock_dir": ".locks"
+  },
+
+  "_旧版自动写入(方案A摘要沉淀, 保留)": "auto_log_* 仍生效, 但仅作用于旧的 memory_agent.js(对话记录标签); 新的双轨写入走 route/exp/net。",
+  "auto_log_enabled": true,
+  "auto_log_min_length": 10,
+  "auto_log_trigger_words": []
+}

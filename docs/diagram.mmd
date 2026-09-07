@@ -1,0 +1,12 @@
+graph TD
+    U["User / AI utterance"] --> R{"Butler / Router<br/>semantic similarity"}
+    R -- "sim > threshold (fuzzy)" --> NET["MEMORY NET<br/>memory_network.json<br/>nodes + edges + tags"]
+    R -- "tech / case" --> EXP["EXPERIENCE CARDS<br/>EXP-*.json<br/>symptom·cause·solution·env"]
+    R -- "below threshold" --> MAIN["Back to main model"]
+    NET --> ACT["Activate + pull neighboring summaries"]
+    EXP --> ENV["Env check → lock / outdated"]
+    NET --> SCORE["SCORE<br/>access + use*2 + validated*5"]
+    EXP --> SCORE
+    SCORE --> LOCK["validated>=3 → locked forever"]
+    SCORE --> DECAY[">30d idle → ×0.95"]
+    SCORE --> GARBAGE["score<=5 & v=0 → garbage (soft delete)"]
