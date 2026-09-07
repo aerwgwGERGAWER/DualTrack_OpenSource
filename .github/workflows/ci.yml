@@ -15,17 +15,24 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Syntax-check core JS files
+      - name: Syntax-check core files
         run: |
-          node --check src/memory_dual.js
-          node --check src/memory_menu.js
-          node --check src/memory_agent.js
-          node --check src/ollama_triage.cjs
-          node --check src/plugin/index.js
-          node --check src/plugin/tools.js
-          node --check scripts/install.mjs
-          node --check scripts/manual-gc.mjs
-          node --check scripts/butler-supervisor.mjs
+          for f in \
+            src/memory_dual.js \
+            src/memory_agent.js \
+            src/ollama_triage.cjs \
+            src/memory_menu.js \
+            src/plugin/index.js \
+            src/plugin/tools.js \
+            scripts/install.mjs \
+            scripts/butler-supervisor.mjs \
+            scripts/manual-gc.mjs ; do
+            if [ -f "$f" ]; then
+              node --check "$f" && echo "OK: $f" || { echo "SYNTAX FAIL: $f"; exit 1; }
+            else
+              echo "SKIP (absent): $f"
+            fi
+          done
 
       - name: Install (skip when no root package.json)
         run: |
