@@ -104,7 +104,7 @@ flowchart TD
 
 ## 包内容（两个发布包）
 
-**主包 `dsh-dual-track-memory-v1.3.zip`** — 干净核心，27 个文件，**不含任何管家 / 守护脚本**（如 `butler-supervisor.mjs`、`启动分诊脑.cmd` 等），仅含标准安装入口。文件清单：
+**主包 `dsh-dual-track-memory-v1.3.zip`** — 干净核心，29 个文件，**不含任何管家 / 守护脚本**（如 `butler-supervisor.mjs`、`启动分诊脑.cmd` 等），仅含标准安装入口。文件清单：
 - **`src/`** 核心引擎
   - `memory_dual.js` — 双轨引擎（记忆网 + 经验档）
   - `memory_agent.js` — 旧单轨引擎（兼容保留）

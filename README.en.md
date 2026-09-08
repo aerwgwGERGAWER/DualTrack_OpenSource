@@ -104,7 +104,7 @@ Together they **go around** the model's physical window limit, achieving **pseud
 
 ## Package contents (two release packages)
 
-**Main package `dsh-dual-track-memory-v1.3.zip`** — clean core, 27 files, **contains no butler / daemon scripts** (e.g. `butler-supervisor.mjs`, `启动分诊脑.cmd`); only standard install entry points. Contents:
+**Main package `dsh-dual-track-memory-v1.3.zip`** — clean core, 29 files, **contains no butler / daemon scripts** (e.g. `butler-supervisor.mjs`, `启动分诊脑.cmd`); only standard install entry points. Contents:
 - **`src/`** core engine
   - `memory_dual.js` — dual-track engine (memory net + experience cards)
   - `memory_agent.js` — legacy single-track engine (kept for compatibility)
